@@ -1,0 +1,1 @@
+export type DeliveryStatus = 'ACTIVE' | 'CANCELLED' | 'EXPRESS' | 'STANDARD';
