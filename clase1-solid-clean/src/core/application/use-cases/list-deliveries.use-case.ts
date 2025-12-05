@@ -1,4 +1,4 @@
-import { Injectable } from "src/shared/di/injectable";
+import { Injectable } from "@nestjs/common";
 import { StorageContract } from "src/core/domain/contracts/storage.contract";
 import { Delivery } from "src/core/domain/interfaces/delivery.interface";
 

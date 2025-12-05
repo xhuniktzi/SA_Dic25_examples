@@ -1,21 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
-import { AppErrorGrpcFilter } from './core/infrastructure/filters/app-error.grpc.filter';
+import { AppErrorRestFilter } from './core/infrastructure/filters/app-error.rest.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    transport: Transport.GRPC,
-    options: {
-      url: '0.0.0.0:50051',
-      package: 'deliveries',
-      protoPath: join(__dirname, './proto/deliveries.proto'),
-    },
-  });
-
-  app.useGlobalFilters(new AppErrorGrpcFilter());
-
-  await app.listen();
+  const app = await NestFactory.create(AppModule);
+  const ctx = app.getHttpAdapter().getInstance();
+  app.useGlobalFilters(new AppErrorRestFilter(ctx));
+  await app.listen(3000);
 }
 bootstrap();

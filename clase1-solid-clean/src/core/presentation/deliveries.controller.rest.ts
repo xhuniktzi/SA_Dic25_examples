@@ -1,9 +1,7 @@
 import {
-    BadRequestException,
     Body,
     Controller,
     Get,
-    NotFoundException,
     Param,
     Patch,
     Post,
@@ -28,7 +26,7 @@ export class DeliveriesRestController {
         @Body()
         body: CreateDeliveryPresentationRequest,
     ) {
-        this._createDeliveryUseCase.execute(body);
+        return this._createDeliveryUseCase.execute(body);
     }
 
     //GET /deliveries

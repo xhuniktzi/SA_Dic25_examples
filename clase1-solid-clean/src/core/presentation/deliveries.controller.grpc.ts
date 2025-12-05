@@ -23,7 +23,6 @@ export class DeliveriesGrpcController {
     public async createDelivery(
         body: CreateDeliveryPresentationRequest,
     ) {
-        console.log('GRPC CreateDelivery called with body:', body);
         this._createDeliveryUseCase.execute(body);
     }
 

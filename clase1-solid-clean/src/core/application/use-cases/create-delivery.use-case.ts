@@ -1,8 +1,8 @@
-import { Delivery } from "src/core/domain/interfaces/delivery.interface";
+import { Delivery } from "../../domain/interfaces/delivery.interface";
 import { CreateDeliveryUseCaseRequest } from "../dtos/create-delivery.dto";
-import { StorageContract } from "src/core/domain/contracts/storage.contract";
-import { InvalidRequestError } from "src/core/domain/errors/invalid-request.error";
-import { Injectable } from "src/shared/di/injectable";
+import { StorageContract } from "../../domain/contracts/storage.contract";
+import { InvalidRequestError } from "../../domain/errors/invalid-request.error";
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class CreateDeliveryUseCase {

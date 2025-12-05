@@ -1,7 +1,7 @@
-import { Injectable } from "src/shared/di/injectable";
-import { StorageContract } from "src/core/domain/contracts/storage.contract";
-import { InvalidRequestError } from "src/core/domain/errors/invalid-request.error";
-import { NotFoundError } from "src/core/domain/errors/not-found.error";
+import { Injectable } from "@nestjs/common";
+import { StorageContract } from "../../domain/contracts/storage.contract";
+import { InvalidRequestError } from "../../domain/errors/invalid-request.error";
+import { NotFoundError } from "../../domain/errors/not-found.error";
 
 
 @Injectable()
