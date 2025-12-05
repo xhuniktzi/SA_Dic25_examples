@@ -6,6 +6,7 @@ import { CreateDeliveryUseCase } from "../application/use-cases/create-delivery.
 import { ListDeliveriesUseCase } from "../application/use-cases/list-deliveries.use-case";
 import { FindByIdUseCase } from "../application/use-cases/find-by-id.use-case";
 import { CancelDeliveryUseCase } from "../application/use-cases/cancel-delivery.use-case";
+import { InFileRepository } from "./repositories/in-file.repository";
 
 @Module({
     imports: [],
@@ -17,7 +18,7 @@ import { CancelDeliveryUseCase } from "../application/use-cases/cancel-delivery.
         CancelDeliveryUseCase,
         {
         provide: StorageContract,
-        useClass: InMemoryRepository,
+        useClass: InFileRepository,
     },
 ],
     
