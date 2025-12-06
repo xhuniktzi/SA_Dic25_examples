@@ -1,0 +1,99 @@
+{
+    "info": {
+        "name": "Deliveries Flow",
+        "_postman_id": "d9f2e7a2-aaaa-bbbb-cccc-123456789000",
+        "description": "Flujo completo para Deliveries: create -> list -> get -> cancel",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1) Create STANDARD",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": "{{baseUrl}}/deliveries",
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"originCity\": \"Guatemala City\",\n  \"destinationCity\": \"Quetzaltenango\",\n  \"distanceKm\": 200,\n  \"weightKg\": 12.5,\n  \"serviceType\": \"STANDARD\",\n  \"fragile\": false\n}"
+                }
+            }
+        },
+        {
+            "name": "2) Create EXPRESS + fragile",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": "{{baseUrl}}/deliveries",
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"originCity\": \"Antigua\",\n  \"destinationCity\": \"Cobán\",\n  \"distanceKm\": 120,\n  \"weightKg\": 8,\n  \"serviceType\": \"EXPRESS\",\n  \"fragile\": true\n}"
+                }
+            }
+        },
+        {
+            "name": "3) Create long distance",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": "{{baseUrl}}/deliveries",
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"originCity\": \"Huehuetenango\",\n  \"destinationCity\": \"Puerto Barrios\",\n  \"distanceKm\": 380,\n  \"weightKg\": 20,\n  \"serviceType\": \"STANDARD\",\n  \"fragile\": true\n}"
+                }
+            }
+        },
+        {
+            "name": "4) List deliveries",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/deliveries"
+            }
+        },
+        {
+            "name": "5) Get delivery by id (use id from create)",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/deliveries/{{deliveryId}}"
+            }
+        },
+        {
+            "name": "6) Cancel delivery",
+            "request": {
+                "method": "PATCH",
+                "url": "{{baseUrl}}/deliveries/{{deliveryId}}/cancel"
+            }
+        },
+        {
+            "name": "7) Get cancelled delivery",
+            "request": {
+                "method": "GET",
+                "url": "{{baseUrl}}/deliveries/{{deliveryId}}"
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:3000"
+        },
+        {
+            "key": "deliveryId",
+            "value": ""
+        }
+    ]
+}

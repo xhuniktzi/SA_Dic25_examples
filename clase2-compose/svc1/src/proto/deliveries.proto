@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package deliveries;
+
+// Service mapping controller endpoints to RPCs.
+service DeliveriesService {
+  // POST /deliveries
+  rpc CreateDelivery (CreateDeliveryRequest) returns (CreateDeliveryResponse);
+
+  // GET /deliveries
+  rpc ListDeliveries (ListDeliveriesRequest) returns (ListDeliveriesResponse);
+
+  // GET /deliveries/:id
+  rpc GetDelivery (GetDeliveryRequest) returns (GetDeliveryResponse);
+
+  // PATCH /deliveries/:id/cancel
+  rpc CancelDelivery (CancelDeliveryRequest) returns (CancelDeliveryResponse);
+}
+
+// Messages
+message Delivery {
+  string id = 1;
+  string createdAt = 2;
+  string originCity = 3;
+  string destinationCity = 4;
+  double distanceKm = 5;
+  double weightKg = 6;
+  string serviceType = 7;
+  bool fragile = 8;
+  string status = 9;
+  double basePrice = 10;
+  double fragileFee = 11;
+  double expressFee = 12;
+  double totalPrice = 13;
+}
+
+message CreateDeliveryRequest {
+  string originCity = 1;
+  string destinationCity = 2;
+  double distanceKm = 3;
+  double weightKg = 4;
+  string serviceType = 5;
+  bool fragile = 6;
+}
+
+message CreateDeliveryResponse {
+  Delivery delivery = 1;
+}
+
+message ListDeliveriesRequest {}
+
+message ListDeliveriesResponse {
+  repeated Delivery deliveries = 1;
+}
+
+message GetDeliveryRequest {
+  string id = 1;
+}
+
+message GetDeliveryResponse {
+  Delivery delivery = 1;
+}
+
+message CancelDeliveryRequest {
+  string id = 1;
+}
+
+message CancelDeliveryResponse {
+  Delivery delivery = 1;
+}

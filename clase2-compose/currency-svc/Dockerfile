@@ -28,4 +28,9 @@ COPY --from=builder /usr/src/app/dist ./dist
 
 EXPOSE 3000
 
+# RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# RUN chown -R appuser:appgroup /usr/src/app
+# RUN chmod -R 750 /usr/src/app
+# USER appuser
+
 CMD ["node", "dist/main.js"]

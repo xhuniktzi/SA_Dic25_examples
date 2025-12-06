@@ -1,0 +1,29 @@
+services:
+  servicio1:
+    build:
+      context: ./svc1
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - sa-net
+
+  servicio2:
+    build:
+      context: ./currency-svc
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    networks:
+      - sa-net
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      - sa-net
+
+networks:
+  sa-net:
+    external: true

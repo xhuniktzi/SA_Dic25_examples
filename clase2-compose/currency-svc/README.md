@@ -1,27 +1,25 @@
-# README
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-## Como desplegar la aplicacion en google cloud run
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-1. Instalar la herramienta de linea de comandos de google cloud (gcloud)
-    - <https://docs.cloud.google.com/sdk/docs/install-sdk>
-2. Iniciar sesion en gcloud
-    - `gcloud auth login`
-3. Seleccionar el proyecto de google cloud
-    - `gcloud config set project YOUR_PROJECT_ID`
-4. Construir la imagen de docker
-    - `docker build -t YOUR_USERNAME/YOUR_IMAGE_NAME:TAG .`
-5. Iniciar sesión en Docker Hub
-    - `docker login`
-6. Subir la imagen a Docker Hub
-    - `docker push YOUR_USERNAME/YOUR_IMAGE_NAME:TAG`
-7. Desplegar la aplicacion en Google Cloud Run
-    - `gcloud run deploy YOUR_SERVICE_NAME --image YOUR_USERNAME/YOUR_IMAGE_NAME:TAG --platform managed --region YOUR_REGION --allow-unauthenticated`
-
-En este caso YOUR_SERVICE_NAME es el nombre que le quieres dar al servicio en Google Cloud Run, YOUR_REGION es la region donde quieres desplegar la aplicacion (por ejemplo, us-central1) y --allow-unauthenticated permite que cualquiera pueda acceder a la aplicacion sin necesidad de autenticacion.
-
-Nota: Google Cloud Run requiere que la aplicacion escuche en el puerto especificado por la variable de entorno PORT. Google Cloud Run asigna el puerto 8080 por defecto, esta la asigna como variable de entorno PORT. No se puede usar otro puerto.
-
-Es necesario que la imagen en docker hub sea publica para que Google Cloud Run pueda acceder a ella sin necesidad de autenticacion.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
@@ -30,7 +28,7 @@ Es necesario que la imagen en docker hub sea publica para que Google Cloud Run p
 ## Project setup
 
 ```bash
-npm install
+$ npm install
 ```
 
 ## Compile and run the project
@@ -66,8 +64,8 @@ When you're ready to deploy your NestJS application to production, there are som
 If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
 ```bash
-npm install -g @nestjs/mau
-mau deploy
+$ npm install -g @nestjs/mau
+$ mau deploy
 ```
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.

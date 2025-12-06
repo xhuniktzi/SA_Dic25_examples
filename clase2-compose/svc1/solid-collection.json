@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "07d3f894-795b-498d-a03d-877160f59e24",
+		"name": "Deliveries Flow",
+		"description": "Flujo completo para Deliveries: create -> list -> get -> cancel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14619131"
+	},
+	"item": [
+		{
+			"name": "1) Create STANDARD",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"originCity\": \"Guatemala City\",\n  \"destinationCity\": \"Quetzaltenango\",\n  \"distanceKm\": 200,\n  \"weightKg\": 12.5,\n  \"serviceType\": \"STANDARD\",\n  \"fragile\": false\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/deliveries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deliveries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2) Create EXPRESS + fragile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"originCity\": \"Antigua\",\n  \"destinationCity\": \"Cobán\",\n  \"distanceKm\": 120,\n  \"weightKg\": 8,\n  \"serviceType\": \"EXPRESS\",\n  \"fragile\": true\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/deliveries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deliveries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3) Create long distance",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"originCity\": \"Huehuetenango\",\n  \"destinationCity\": \"Puerto Barrios\",\n  \"distanceKm\": 380,\n  \"weightKg\": 20,\n  \"serviceType\": \"STANDARD\",\n  \"fragile\": true\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/deliveries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deliveries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4) List deliveries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/deliveries",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deliveries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5) Get delivery by id (use id from create)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/deliveries/{{deliveryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deliveries",
+						"{{deliveryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6) Cancel delivery",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/deliveries/{{deliveryId}}/cancel",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deliveries",
+						"{{deliveryId}}",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "deliveryId",
+			"value": ""
+		}
+	]
+}
