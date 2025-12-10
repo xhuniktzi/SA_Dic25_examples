@@ -11,10 +11,13 @@ import { CreateDeliveryUseCase } from '../application/use-cases/create-delivery.
 import { ListDeliveriesUseCase } from '../application/use-cases/list-deliveries.use-case';
 import { FindByIdUseCase } from '../application/use-cases/find-by-id.use-case';
 import { CancelDeliveryUseCase } from '../application/use-cases/cancel-delivery.use-case';
+import axios from 'axios';
 
 @Controller('deliveries')
 export class DeliveriesRestController {
-
+    private readonly http = axios.create({
+        baseURL: 'http://servicio2:3000/currency/',
+    })
     constructor(private readonly _createDeliveryUseCase: CreateDeliveryUseCase,
         private readonly _listDeliveriesUseCase: ListDeliveriesUseCase,
         private readonly _findByIdUseCase: FindByIdUseCase,
@@ -48,5 +51,12 @@ export class DeliveriesRestController {
     @Patch(':id/cancel')
     cancelDelivery(@Param('id') id: string) {
         return this._cancelDeliveryUseCase.execute(id);
+    }
+
+    @Get(':id/exchange-rate')
+    async getExchangeRate(@Param('id') id: string) {
+        const currencies = await this.http.get(id);
+        return currencies.data;
+
     }
 }
