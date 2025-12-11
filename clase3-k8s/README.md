@@ -13,3 +13,13 @@ Despues tienes que instalar gke-gcloud-auth-plugin en:
 ```bash
 gcloud container clusters get-credentials test-cluster-sa --zone=us-central1-a
 ```
+
+## Instalar nginx ingress controller
+
+```bash
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+kubectl get svc -n ingress-nginx
+```

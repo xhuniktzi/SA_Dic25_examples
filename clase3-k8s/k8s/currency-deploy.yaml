@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: currency-deployment
-          image: xhuniktzi/currency-svc:latest
+          image: xhuniktzi/currency-svc:v2
           imagePullPolicy: Always
           env:
             - name: PORT
@@ -32,10 +32,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: currency-deployment
+  name: currency-service
   namespace: currency
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: currency-deployment
   ports:
@@ -47,7 +47,7 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: currency-deployment
+  name: currency-hpa
   namespace: currency
 spec:
   scaleTargetRef:
@@ -63,3 +63,28 @@ spec:
         target:
           type: Utilization
           averageUtilization: 50
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: currency-ingress
+  namespace: currency
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/auth"
+        backend:
+          service:
+            name: currency-service
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: "/system"
+        backend:
+          service:
+            name: currency-service
+            port: 
+              number: 80
