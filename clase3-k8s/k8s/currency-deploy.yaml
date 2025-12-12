@@ -15,8 +15,27 @@ spec:
     spec:
       containers:
         - name: currency-deployment
-          image: xhuniktzi/currency-svc:v2
+          image: xhuniktzi/currency-svc:v4
           imagePullPolicy: Always
+
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+            successThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+            successThreshold: 1
           env:
             - name: PORT
               value: "80"
@@ -28,6 +47,7 @@ spec:
               memory: "128Mi"
               cpu: "250m"
       restartPolicy: Always
+
 ---
 apiVersion: v1
 kind: Service
@@ -83,6 +103,13 @@ spec:
               number: 80
       - pathType: Prefix
         path: "/system"
+        backend:
+          service:
+            name: currency-service
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: "/currency"
         backend:
           service:
             name: currency-service
