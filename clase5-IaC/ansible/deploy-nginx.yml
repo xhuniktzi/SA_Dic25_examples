@@ -1,0 +1,73 @@
+- name: Deploy nginx into GKE
+  hosts: local
+  gather_facts: false
+  vars:
+    namespace: demo-nginx
+
+  environment:
+    K8S_AUTH_KUBECONFIG: "{{ lookup('env','HOME') + '/.kube/config' }}"
+
+  tasks:
+    - name: Ensure namespace exists
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: "{{ namespace }}"
+        state: present
+
+    - name: Deploy nginx application
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: nginx-deployment
+            namespace: "{{ namespace }}"
+          spec:
+            replicas: 2
+            selector:
+              matchLabels:
+                app: nginx
+            template:
+              metadata:
+                labels:
+                  app: nginx
+              spec:
+                containers:
+                - name: nginx
+                  image: nginx:stable
+                  ports:
+                  - containerPort: 80
+
+    - name: Expose nginx deployment via LoadBalancer service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: nginx-service
+            namespace: "{{ namespace }}"
+          spec:
+            type: LoadBalancer
+            selector:
+              app: nginx
+            ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 80
+
+    - name: Wait for LoadBalancer IP
+      kubernetes.core.k8s_info:
+        kind: Service
+        namespace: "{{ namespace }}"
+        name: nginx-service
+      register: service_info
+      until: service_info.resources[0].status.loadBalancer.ingress is defined
+      retries: 10
+      delay: 15
+
+    - name: Display LoadBalancer IP
+      debug:
+        msg: "Nginx is available at http://{{ service_info.resources[0].status.loadBalancer.ingress[0].ip }}"
