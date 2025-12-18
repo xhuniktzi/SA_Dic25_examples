@@ -1,0 +1,42 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+
+metadata:
+  name: elasticsearch
+  namespace: logging
+spec:
+  version: 8.9.0
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+    - name: default
+      count: 1
+      config:
+        node.roles: ["data", "ingest", "master"]
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms1g -Xmx1g"
+              resources:
+                limits:
+                  memory: 1Gi
+                  cpu: 1
+                requests:
+                  memory: 0.5Gi
+                  cpu: 0.5
+              
+
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi

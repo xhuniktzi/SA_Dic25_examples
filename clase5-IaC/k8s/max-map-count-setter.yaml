@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: max-map-count-setter
+  namespace: elastic-system
+spec:
+  selector:
+    matchLabels:
+      name: max-map-count-setter
+  template:
+    metadata:
+      labels:
+        name: max-map-count-setter
+    spec:
+      initContainers:
+        - name: max-map-count-setter
+          image: bash:5.2.15
+          securityContext:
+            privileged: true
+            runAsUser: 0 # Run as root to set sysctl
+          command:
+            [
+              "/usr/local/bin/bash",
+              "-e",
+              "-c",
+              "echo 262144 > /proc/sys/vm/max_map_count",
+            ]
+
+      containers:
+        - name: pause
+          image: bash:5.2.15
+          command: ["/usr/local/bin/bash", "-c", "sleep infinity"]
