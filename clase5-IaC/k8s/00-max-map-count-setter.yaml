@@ -14,10 +14,10 @@ spec:
     spec:
       initContainers:
         - name: max-map-count-setter
-          image: bash:5.2.15
+          image: docker.io/bash:5.2.15
           securityContext:
             privileged: true
-            runAsUser: 0 # Run as root to set sysctl
+            runAsUser: 0
           command:
             [
               "/usr/local/bin/bash",
@@ -25,8 +25,7 @@ spec:
               "-c",
               "echo 262144 > /proc/sys/vm/max_map_count",
             ]
-
       containers:
-        - name: pause
-          image: bash:5.2.15
-          command: ["/usr/local/bin/bash", "-c", "sleep infinity"]
+        - name: sleep
+          image: docker.io/bash:5.2.15
+          command: ["sleep", "infinity"]

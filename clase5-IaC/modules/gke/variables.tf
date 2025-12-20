@@ -41,7 +41,7 @@ variable "services_cidr" {
 
 variable "machine_type" {
   type = string
-  default = "e2-medium"
+  default = "e2-standard-2"
 }
 
 variable "disk_type" {
@@ -61,5 +61,5 @@ variable "min_nodes" {
 
 variable "max_nodes" {
   type = number
-  default = 3
+  default = 5
 }

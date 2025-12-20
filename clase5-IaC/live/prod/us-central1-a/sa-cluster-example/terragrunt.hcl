@@ -26,8 +26,8 @@ inputs = {
   cluster_name = local.cluster_name
 
   min_nodes = 1
-    max_nodes = 3
-    machine_type = "e2-medium"
+    max_nodes = 5
+    machine_type = "e2-standard-2"
     disk_type = "pd-standard"
     disk_size_gb = 30
 
